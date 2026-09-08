@@ -27,8 +27,8 @@ public:
             fast=fast->next->next;
         }
         ListNode* first=head;
-        ListNode* second = reverseLL(slow->next);
-
+        ListNode* newhead = reverseLL(slow->next);
+        ListNode* second=newhead;
         while(second!=NULL){
             if(first->val!=second->val){
                 reverseLL(second);
@@ -37,7 +37,7 @@ public:
             first=first->next;
             second=second->next;
         }
-        reverseLL(second);
+        reverseLL(newhead);
         return true;
     }
 };
