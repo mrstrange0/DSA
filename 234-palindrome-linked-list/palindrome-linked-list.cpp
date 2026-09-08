@@ -1,45 +1,43 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
 class Solution {
 public:
+    ListNode* reverseLL(ListNode* head){
+        if(head==NULL || head->next==NULL) return head;
+        ListNode* newhead= reverseLL(head->next);
+        ListNode* front = head->next;
+        front->next=head;
+        head->next=NULL;
+        return newhead;
+    }
     bool isPalindrome(ListNode* head) {
-        if (head == nullptr || head->next == nullptr)
-            return true;
+        ListNode* slow=head;
+        ListNode* fast=head;
 
-        // Find middle using slow and fast pointers
-        ListNode* slow = head;
-        ListNode* fast = head;
-
-        while (fast != nullptr && fast->next != nullptr) {
-            slow = slow->next;
-            fast = fast->next->next;
+        while(fast->next!=NULL && fast->next->next!=NULL){
+            slow=slow->next;
+            fast=fast->next->next;
         }
+        ListNode* first=head;
+        ListNode* second = reverseLL(slow->next);
 
-        // For odd length, skip the middle node
-        if (fast != nullptr)
-            slow = slow->next;
-
-        // Reverse the second half
-        ListNode* prev = nullptr;
-        ListNode* curr = slow;
-
-        while (curr != nullptr) {
-            ListNode* next = curr->next;
-            curr->next = prev;
-            prev = curr;
-            curr = next;
-        }
-
-        // Compare first half and reversed second half
-        ListNode* left = head;
-        ListNode* right = prev;
-
-        while (right != nullptr) {
-            if (left->val != right->val)
+        while(second!=NULL){
+            if(first->val!=second->val){
+                reverseLL(second);
                 return false;
-
-            left = left->next;
-            right = right->next;
+            }
+            first=first->next;
+            second=second->next;
         }
-
+        reverseLL(second);
         return true;
     }
 };
