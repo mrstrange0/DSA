@@ -12,8 +12,13 @@ public:
                 st.pop();
             }
 
-            if (i < n && !st.empty()) {
-                ans[idx] = st.top();
+            if (i < n ) {
+                if(st.empty()){
+                    ans[i]=-1;
+                }
+                else{
+                    ans[i]=st.top();
+                }
             }
 
             st.push(nums[idx]);
