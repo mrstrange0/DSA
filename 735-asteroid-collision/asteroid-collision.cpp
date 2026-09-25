@@ -1,39 +1,27 @@
 class Solution {
 public:
     vector<int> asteroidCollision(vector<int>& asteroids) {
-        vector<int> st;
+        list<int> st;
 
-        for (int asteroid : asteroids) {
-            
-            // Collision can happen only when:
-            // top asteroid is moving right (+)
-            // current asteroid is moving left (-)
-            bool destroyed = false;
-
-            while (!st.empty() && st.back() > 0 && asteroid < 0) {
-                
-                if (st.back() < -asteroid) {
-                    // Stack asteroid is smaller -> it explodes
-                    st.pop_back();
-                }
-                else if (st.back() == -asteroid) {
-                    // Both are same size -> both explode
-                    st.pop_back();
-                    destroyed = true;
-                    break;
-                }
-                else {
-                    // Current asteroid is smaller -> it explodes
-                    destroyed = true;
-                    break;
-                }
+       for(int i=0; i<asteroids.size(); i++){
+        
+        if(asteroids[i]>=0){
+            st.push_back(asteroids[i]);
+        }
+        else{
+            while(!st.empty() && st.back()>0 && st.back()< -asteroids[i]){
+                st.pop_back();
             }
 
-            if (!destroyed) {
-                st.push_back(asteroid);
+            if(!st.empty() && st.back()== -asteroids[i]){
+                st.pop_back();
+            }
+            else if(st.empty() || st.back()<0){
+                st.push_back(asteroids[i]);
             }
         }
-
-        return st;
+       }
+       
+       return vector<int>(st.begin(), st.end());
     }
 };
