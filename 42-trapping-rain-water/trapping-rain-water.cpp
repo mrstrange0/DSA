@@ -9,17 +9,19 @@ public:
         
         while (left < right) {
             if (height[left] <= height[right]) {
-                if (height[left] >= leftMax) {
-                    leftMax = height[left];
-                } else {
+                if (leftMax > height[left]) {
                     water += leftMax - height[left];
+                } 
+                else {
+                    leftMax = height[left];
                 }
                 left++;
-            } else {
-                if (height[right] >= rightMax) {
-                    rightMax = height[right];
-                } else {
+            } 
+            else {
+                if (rightMax > height[right]) {
                     water += rightMax - height[right];
+                } else {
+                    rightMax = height[right];
                 }
                 right--;
             }
