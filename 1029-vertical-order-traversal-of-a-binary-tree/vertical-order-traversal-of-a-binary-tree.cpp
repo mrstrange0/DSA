@@ -12,7 +12,7 @@
 class Solution {
 public:
 vector<vector<int>> verticalTraversal(TreeNode* root) {
-// Stores: column -> row -> node values
+
 map<int, map<int, multiset<int>>> nodes;
 
     queue<pair<TreeNode*, pair<int, int>>> q;
@@ -39,13 +39,13 @@ map<int, map<int, multiset<int>>> nodes;
 
     vector<vector<int>> ans;
 
-    // Traverse columns from left to right
+    //for LEFT-RIGHT traversal
     for (auto col : nodes) {
         vector<int> temp;
 
         // Traverse rows from top to bottom
         for (auto row : col.second) {
-            // Sort values when nodes share the same row and column
+            // Sorting values 
             for (auto value : row.second) {
                 temp.push_back(value);
             }
